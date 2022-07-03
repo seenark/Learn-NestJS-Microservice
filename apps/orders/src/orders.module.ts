@@ -6,7 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { ENV_Validate } from './env.validate';
 import { OrdersController } from './orders.controller';
 import { OrdersService } from './orders.service';
-import { DatabaseModule } from '@app/common';
+import { DatabaseModule, RmqModule } from '@app/common';
+import { BILLING_SERVICE } from './constants/services';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DatabaseModule } from '@app/common';
         schema: OrderSchema,
       },
     ]),
+    RmqModule.register({ name: BILLING_SERVICE }),
   ],
   controllers: [OrdersController],
   providers: [OrdersService, OrdersRepository],
